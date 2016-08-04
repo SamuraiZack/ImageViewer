@@ -292,7 +292,9 @@ public final class ImageViewerController: UIViewController, UIScrollViewDelegate
                 
                 self.scrollView.addSubview(self.imageView)
                 self.imageProvider.provideImage { [weak self] image in
-                    self?.imageView.image = image
+                    dispatch_async(dispatch_get_main_queue()) {
+                        self?.imageView.image = image
+                    }
                 }
                 
                 self.isAnimating = false
